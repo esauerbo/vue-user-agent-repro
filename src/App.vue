@@ -1,12 +1,12 @@
 <script setup>
   import { Authenticator } from '@aws-amplify/ui-vue';
-  import { setUserAgent } from '@aws-amplify/ui';
+  import { setCustomUserAgent } from '@aws-amplify/core/src/Platform/customUserAgent'
   import '@aws-amplify/ui-vue/styles.css';
   import { onMounted, onUnmounted } from 'vue';
   let clearUserAgent; 
 
   onMounted(() => {
-  clearUserAgent = setUserAgent({
+  clearUserAgent = setCustomUserAgent({
     componentName: 'Authenticator',
     packageName: 'vue',
     version: '3.2.9',

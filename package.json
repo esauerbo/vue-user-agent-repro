@@ -8,10 +8,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aws-amplify/ui": "next-release",
     "@aws-amplify/ui-vue": "next-release",
-    "aws-amplify": "console-preview",
+    "aws-amplify": "^6.0.1-console-preview.d745d43.0",
     "vue": "^3.3.4"
+  },
+  "resolutions": {
+    "aws-amplify": "^6.0.1-console-preview.d745d43.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
