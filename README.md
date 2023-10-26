@@ -1,29 +1,6 @@
 #  vue-user-agent
+Reproducing an issue where we can't see custom headers in vue when using `setCustomUserAgent`
 
-This template should help get you started developing with Vue 3 in Vite.
+1. Enter any username/password and click sign in
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+2. Check network tab and cognito request does not show custom header (missing `Authenticator ui-vue/3.2.9` )
