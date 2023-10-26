@@ -1,15 +1,34 @@
 <script setup>
-  import { Authenticator } from '@aws-amplify/ui-vue';
+  import { signIn } from 'aws-amplify/auth';
   import { setCustomUserAgent } from '@aws-amplify/core/src/Platform/customUserAgent'
-  import '@aws-amplify/ui-vue/styles.css';
-  import { onMounted, onUnmounted } from 'vue';
+  import { AuthAction, Category } from '@aws-amplify/core/internals/utils';
+  import { onMounted, onUnmounted, ref } from 'vue';
+
+  const username = ref(''); 
+  const password = ref(''); 
+
   let clearUserAgent; 
+
+  const AUTHENTICATOR_INPUT_BASE = {
+  apis: [
+    AuthAction.SignUp,
+    AuthAction.ConfirmSignUp,
+    AuthAction.ResendSignUpCode,
+    AuthAction.SignIn,
+    AuthAction.ConfirmSignIn,
+    AuthAction.FetchUserAttributes,
+    AuthAction.SignOut,
+    AuthAction.ResetPassword,
+    AuthAction.ConfirmResetPassword,
+    AuthAction.SignInWithRedirect,
+  ],
+  category: Category.Auth,
+};
 
   onMounted(() => {
   clearUserAgent = setCustomUserAgent({
-    componentName: 'Authenticator',
-    packageName: 'vue',
-    version: '3.2.9',
+    ...AUTHENTICATOR_INPUT_BASE,
+    additionalDetails: [['Authenticator'], ['ui-vue', '3.2.9']]
   });
 });
 
@@ -17,14 +36,25 @@ onUnmounted(() => {
   clearUserAgent();
 });
 
+const onSignIn = async () => {
+  try {
+    const result = await signIn({
+      username: username.value,
+      password: password.value,
+    });
+    console.log('Sign up successful:', result);
+  } catch (error) {
+    console.error('Sign up error:', error);
+  }
+};
+
 </script>
 <template>
-  <authenticator>
-    <template v-slot="{ user, signOut }">
-      <h1>Hello {{ user.username }}!</h1>
-      <button @click="signOut">Sign Out</button>
-    </template>
-  </authenticator>
+  <div>
+    <input type="text" v-model="username" placeholder="Username" />
+    <input type="password" v-model="password" placeholder="Password" />
+    <button @click="onSignIn">Sign In</button>
+  </div>
 </template>
 
 <style scoped>
